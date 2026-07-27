@@ -1,11 +1,12 @@
 [build]
-  command = "pnpm build"
-  publish = ".next"
+command = "node scripts/prepare-netlify-static.mjs && pnpm build"
+publish = "out"
 
 [build.environment]
   NODE_VERSION = "22"
   PNPM_VERSION = "10.12.1"
   NEXT_PUBLIC_DEMO_MODE = "true"
+  NETLIFY_STATIC_EXPORT = "true"
 
 [[headers]]
   for = "/*"

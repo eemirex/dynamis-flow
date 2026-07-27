@@ -366,14 +366,14 @@ The project has been verified against:
 
 ### Netlify
 
-Netlify detects the Next.js runtime automatically. The checked-in `netlify.toml` pins Node 22 and the build command.
+The public portfolio deploy uses a credential-free static export so every reviewer can explore it without backend access. The checked-in `netlify.toml` pins Node 22, enables demo mode, and publishes the generated `out` directory.
 
 1. Import the GitHub repository into Netlify.
 2. Add the environment variables from `.env.example`.
 3. Keep `NEXT_PUBLIC_DEMO_MODE=true` for a public portfolio demo, or set it to `false` after connecting Supabase.
 4. Deploy the `main` branch.
 
-API routes run as Netlify Functions; proxy logic runs at the edge.
+For a live production workspace, remove `NETLIFY_STATIC_EXPORT`, restore the normal `pnpm build` command and `.next` publish target, then provide Supabase credentials. Netlify's Next.js runtime will package route handlers as Functions and proxy logic for the edge.
 
 ### Production readiness checklist
 
