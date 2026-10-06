@@ -150,7 +150,9 @@ export function WorkspaceShell() {
   }
 
   function addTask(formData: FormData) {
-    const title = String(formData.get("title") || "Untitled task");
+    const title = String(formData.get("title") ?? "").trim();
+    if (!title) return;
+    const description = String(formData.get("description") ?? "").trim();
     const task: Task = {
       id: `MOB-${28 + tasks.length}`,
       title,
@@ -163,7 +165,7 @@ export function WorkspaceShell() {
       due: "Aug 8",
       comments: 0,
       attachments: 0,
-      description: "New task created in the interactive demo workspace.",
+      description: description || "New task created in the interactive demo workspace.",
     };
     setTasks((current) => [task, ...current]);
     setNewTaskOpen(false);
@@ -344,7 +346,7 @@ export function WorkspaceShell() {
               <label>Status<select defaultValue="planned"><option value="planned">Planned</option></select></label>
               <label>Priority<select defaultValue="medium"><option value="medium">Medium</option></select></label>
             </div>
-            <label>Description<textarea placeholder="Add context, outcomes, or acceptance criteria…" /></label>
+            <label>Description<textarea name="description" placeholder="Add context, outcomes, or acceptance criteria…" /></label>
             <div className="modal-actions">
               <button className="button button-quiet" type="button" onClick={() => setNewTaskOpen(false)}>Cancel</button>
               <button className="button button-primary" type="submit">Create task</button>
